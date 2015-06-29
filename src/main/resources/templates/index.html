@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="./js/app.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="taskManeger">
+
+<div ng-hide="insertListPanel">
+	<p>Name: <input type="text" ng-model="listName" /></p>
+	<p>Description: <input type="text" ng-model="listDescription" /></p>
+	<input type="hidden" ng-model="listId"/>
+	<button ng-click="saveList()">Send</button>
+	<button ng-click="toggle(1)">Cancel</button>
+</div>
+<div ng-hide="listPanel">
+	<table>
+		<thead>
+			<tr style="text-align: center">
+				<td>List Name</td>
+				<td>List Description</td>
+				<td colspan="3">Options</td>
+			</tr>
+		</thead>
+		<tr ng-repeat="list in tasksList">
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ list.name }}</td>
+		<td ng-if="$even">{{ list.name }}</td>
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ list.description }}</td>
+		<td ng-if="$even">{{ list.description }}</td>
+		<td><button ng-click="findTasks($index)">Show Tasks</button></td>
+		<td><button ng-click="edit($index)">Edit</button></td>
+		<td><button ng-click="remove($index)">Delete</button></td>
+		</tr>
+	</table>
+	<button ng-click="toggle(2)" >New List</button>
+</div>
+
+<div ng-hide="insertTaskPanel">
+	<p>Name: <input type="text" ng-model="taskName" /></p>
+	<p>Description: <input type="text" ng-model="taskDescription" /></p>
+	<p>TaskList: {{listName}}</p>			
+	<input type="hidden" ng-model="listId"/>
+	<input type="hidden" ng-model="taskId"/>
+	<button ng-click="saveTask()">Save</button>
+	<button ng-click="toggle(1)">Cancel</button>
+</div>
+
+<div ng-hide="listTaskPanel">
+	<table>
+		<thead>
+			<tr style="text-align: center">
+				<td>Task Name</td>
+				<td>Task Description</td>
+				<td>Task Priority</td>
+				<td>List</td>
+				<td colspan="3">Options</td>
+			</tr>
+		</thead>
+		<tr ng-repeat="task in tasks">
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ task.name }}</td>
+		<td ng-if="$even">{{ task.name }}</td>
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ task.description }}</td>
+		<td ng-if="$even">{{ task.description }}</td>
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ task.priority }}</td>
+		<td ng-if="$even">{{ task.priority }}</td>
+		<td ng-if="$odd" style="background-color:#f1f1f1">{{ task.taskList.name }}</td>
+		<td ng-if="$even">{{ task.taskList.name }}</td>
+		<td><button ng-click="editTask($index)">Edit</button></td>
+		<td><button ng-click="removeTask($index)">Delete</button></td>
+		</tr>
+	</table>
+	<button ng-click="toggle(3)">Add New Task</button>
+	<button ng-click="toggle(1)">Show Lists</button>
+	
+</div>
+
+</div></body>
+</html>
